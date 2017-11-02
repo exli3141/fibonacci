@@ -1,11 +1,19 @@
 'use strict';
+const memo = new Map();
+
+memo.set(0, 0);
+memo.set(1, 1);
+
 function fib(n) {
-  if (n === 0) {
-    return 0;
-  } else if (n === 1) {
-    return 1;
+  if (memo.has(n)) {
+    return memo.get(n);
   } else {
-    return fib(n - 1) + fib(n - 2);
+    const value = fib(n - 1) + fib(n - 2);
+    memo.set(n, value);
+    if (value === Infinity) {
+      return new Error('引数が大きすぎます。');
+    }
+    return value;
   }
   return new Error('引数が入っていません。');
 }
